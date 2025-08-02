@@ -3,8 +3,8 @@ from tkinter import messagebox
 
 def calculate_bmi():
     try:
-        weight = float(entry_weight.get())
-        height = float(entry_height.get())
+        weight = float(weight_entry.get())
+        height = float(height_entry.get())/100
         bmi=weight/(height**2)
 
 
@@ -26,22 +26,28 @@ def calculate_bmi():
 root=tk.Tk()
 root.title("BMI Calculator")
 root.geometry("300x250")
+root.resizable(False, False)
+root.configure(bg="#f0f0f0")
 
-label_title=tk.Label(root,text="BMI Calculator",font=('Segoe UI',16))
+label_title=tk.Label(root,text="BMI Calculator",font=('Helvetica',16, "bold"),bg="#f0f0f0")
 label_title.pack(pady=10)
 
-label_weight=tk.Label(root,text="Enter your weight in Kilograms : ")
-label_weight.pack()
-entry_weight=tk.Entry(root)
-entry_weight.pack()
+input_frame = tk.Frame(root, bg="#f0f0f0")
+input_frame.pack(pady=5)
 
-label_height=tk.Label(root,text="Enter your height in Metres : ")
-label_height.pack()
-entry_height=tk.Entry(root)
-entry_height.pack()
+tk.Label(input_frame, text="Height (cm):", font=("Helvetica", 11), bg="#f0f0f0").grid(row=0, column=0, padx=5, pady=5, sticky="e")
+height_entry = tk.Entry(input_frame, font=("Helvetica", 11), width=10)
+height_entry.grid(row=0, column=1, padx=5, pady=5)
 
-btn=tk.Button(root,text="Calculate BMI",command=calculate_bmi)
-btn.pack(pady=15)
+tk.Label(input_frame, text="Weight (kg):", font=("Helvetica", 11), bg="#f0f0f0").grid(row=1, column=0, padx=5, pady=5, sticky="e")
+weight_entry = tk.Entry(input_frame, font=("Helvetica", 11), width=10)
+weight_entry.grid(row=1, column=1, padx=5, pady=5)
+
+calculate_button = tk.Button(root, text="Calculate BMI", font=("Helvetica", 11), bg="#4CAF50", fg="white", command=calculate_bmi)
+calculate_button.pack(pady=10)
+
+result_label = tk.Label(root, text="", font=("Helvetica", 12), bg="#f0f0f0", wraplength=280, justify="center")
+result_label.pack(pady=10)
 
 root.mainloop()
 
